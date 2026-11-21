@@ -6,112 +6,104 @@
 <title>yzbslz</title>
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://yzbslz.netlify.app/">
-<meta http-equiv="refresh" content="1.6; url=https://yzbslz.netlify.app/">
+<link rel="preload" as="image" href="https://t.tutu.to/img/pWUs">
+<noscript><meta http-equiv="refresh" content="2; url=https://yzbslz.netlify.app/"></noscript>
 <style>
-  :root{ --ink:#f3f6ff; }
+  :root{ --ink:#f4f7ff; --wall:"https://t.tutu.to/img/pWUs"; }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
+
+  /* 底色：就算壁纸还没下载完，这里也不是一块死黑 */
   body{
-    background:#05070d;
+    background:
+      radial-gradient(90% 70% at 78% 18%, rgba(96,120,180,.28), transparent 62%),
+      radial-gradient(85% 65% at 18% 88%, rgba(150,90,130,.26), transparent 66%),
+      linear-gradient(160deg,#0b1220 0%,#0a1018 45%,#070a10 100%);
     color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
     overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:flex;align-items:center;justify-content:center;
     -webkit-font-smoothing:antialiased;
   }
-  /* 壁纸层：缓慢呼吸缩放，避免看起来像一张静态截图 */
-  body::after{
-    content:"";
-    position:fixed;inset:-3%;
+
+  /* 壁纸层：加载完成后淡入 + 极缓呼吸缩放 */
+  #wall{
+    position:fixed;inset:-3%;z-index:-2;
     background:url("https://t.tutu.to/img/pWUs") center/cover no-repeat;
-    z-index:-1;
-    animation:breathe 22s ease-in-out infinite alternate;
+    opacity:0;
+    transform:scale(1);
+    transition:opacity 1.1s ease;
+    animation:breathe 24s ease-in-out infinite alternate;
   }
-  @keyframes breathe{from{transform:scale(1)}to{transform:scale(1.055)}}
-  /* 压暗层：任何壁纸下文字都清楚 */
+  #wall.on{opacity:1}
+  @keyframes breathe{from{transform:scale(1)}to{transform:scale(1.05)}}
+
+  /* 压暗层：保证任何壁纸下都读得清 */
   body::before{
-    content:"";
-    position:fixed;inset:0;
+    content:"";position:fixed;inset:0;z-index:-1;
     background:
-      radial-gradient(115% 85% at 50% 42%, rgba(5,7,13,.28), rgba(5,7,13,.74) 68%, rgba(5,7,13,.90)),
-      linear-gradient(180deg, rgba(5,7,13,.5), rgba(5,7,13,.68));
-    z-index:-1;
+      radial-gradient(115% 85% at 50% 42%, rgba(4,7,14,.26), rgba(4,7,14,.72) 68%, rgba(4,7,14,.90)),
+      linear-gradient(180deg, rgba(4,7,14,.48), rgba(4,7,14,.66));
   }
 
-  .stage{
-    position:relative;z-index:1;
-    text-align:center;
-    padding:0 28px;
-    transform:translateY(-2vh);
-  }
+  .stage{position:relative;z-index:1;text-align:center;padding:0 28px;transform:translateY(-2vh)}
   h1{
-    font-size:clamp(30px,9vw,46px);
-    font-weight:600;
-    letter-spacing:.16em;
-    text-indent:.16em;
-    text-shadow:0 2px 28px rgba(0,0,0,.6);
+    font-size:clamp(30px,9vw,46px);font-weight:600;
+    letter-spacing:.16em;text-indent:.16em;
+    text-shadow:0 2px 30px rgba(0,0,0,.6);
   }
-  .tag{
-    margin-top:12px;
-    font-size:11px;
-    letter-spacing:.42em;
-    text-indent:.42em;
-    color:rgba(243,246,255,.66);
-  }
-  .bar{
-    width:132px;height:1px;
-    margin:28px auto 0;
-    background:rgba(255,255,255,.2);
-    overflow:hidden;
-  }
-  .bar i{
-    display:block;height:100%;width:100%;
-    background:rgba(255,255,255,.92);
-    transform:scaleX(0);transform-origin:left;
-    animation:fill 1.6s linear forwards;
-  }
-  @keyframes fill{to{transform:scaleX(1)}}
-
+  .tag{margin-top:12px;font-size:11px;letter-spacing:.42em;text-indent:.42em;color:rgba(244,247,255,.66)}
+  .bar{width:132px;height:1px;margin:28px auto 0;background:rgba(255,255,255,.2);overflow:hidden}
+  .bar i{display:block;height:100%;width:100%;background:rgba(255,255,255,.92);transform:scaleX(0);transform-origin:left;transition:transform 1.5s linear}
   .enter{
-    display:inline-block;
-    margin-top:24px;
+    display:inline-block;margin-top:24px;
     font-size:12px;letter-spacing:.18em;text-indent:.18em;
-    color:rgba(243,246,255,.92);
-    text-decoration:none;
-    padding:9px 18px 8px;
-    border:1px solid rgba(255,255,255,.28);
-    border-radius:2px;
+    color:rgba(244,247,255,.92);text-decoration:none;
+    padding:9px 18px 8px;border:1px solid rgba(255,255,255,.28);border-radius:2px;
     background:rgba(255,255,255,.05);
     transition:background .25s,border-color .25s;
   }
   .enter:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55)}
-
   .host{
-    position:fixed;left:0;right:0;bottom:18px;z-index:1;
-    text-align:center;
-    font-size:10px;letter-spacing:.24em;text-indent:.24em;
-    color:rgba(243,246,255,.42);
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    body::after{animation:none}
-    .bar i{animation-duration:.01s}
+    position:fixed;left:0;right:0;bottom:18px;z-index:1;text-align:center;
+    font-size:10px;letter-spacing:.24em;text-indent:.24em;color:rgba(244,247,255,.42);
   }
 </style>
 </head>
 <body>
+  <div id="wall"></div>
+
   <div class="stage">
     <h1>yzbslz</h1>
     <p class="tag">MUSIC · 个人主页</p>
-    <div class="bar"><i></i></div>
+    <div class="bar"><i id="fill"></i></div>
     <a class="enter" href="https://yzbslz.netlify.app/">直接进入</a>
   </div>
   <p class="host">YZBSLZ.NETLIFY.APP</p>
 
 <script>
-  setTimeout(function(){ location.replace("https://yzbslz.netlify.app/"); }, 1650);
+(function(){
+  var TARGET = "https://yzbslz.netlify.app/";
+  var wall = document.getElementById("wall");
+  var bar  = document.getElementById("fill");
+  var loaded = false, leaving = false;
+
+  function paint(){ wall.classList.add("on"); bar.style.transform = "scaleX(1)"; }
+  function go(){
+    if (leaving) return;
+    leaving = true;
+    setTimeout(function(){ location.replace(TARGET); }, 850);
+  }
+
+  var img = new Image();
+  img.onload  = function(){ loaded = true; paint(); setTimeout(go, 1050); };
+  img.onerror = function(){ setTimeout(go, 600); };
+  img.src = "https://t.tutu.to/img/pWUs";
+
+  // 兜底：最多等 3.2 秒，无论如何都跳走
+  setTimeout(function(){ if(!loaded) paint(); }, 300);
+  setTimeout(go, 3200);
+})();
 </script>
 </body>
 </html>
