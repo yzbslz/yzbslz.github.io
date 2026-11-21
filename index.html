@@ -98,9 +98,11 @@
   var wall = document.getElementById("wall");
   var bar  = document.getElementById("fill");
   var loaded = false, leaving = false;
+  var PREVIEW = /preview/.test(location.search) || /preview/.test(location.hash);
 
   function paint(){ wall.classList.add("on"); bar.style.transform = "scaleX(1)"; }
   function go(){
+    if (PREVIEW) return;
     if (leaving) return;
     leaving = true;
     setTimeout(function(){ location.replace(TARGET); }, 900);
