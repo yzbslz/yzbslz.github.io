@@ -20,14 +20,12 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* 壁纸 */
+  /* 壁纸（直接可见，不依赖淡入动画） */
   #wall{
     position:fixed;inset:-2%;z-index:-2;
     background:url("https://t.tutu.to/img/pWUs") center 30%/cover no-repeat;
-    opacity:0;transition:opacity 1s ease;
     animation:breathe 26s ease-in-out infinite alternate;
   }
-  #wall.on{opacity:1}
   @keyframes breathe{from{transform:scale(1)}to{transform:scale(1.035)}}
 
   /* 底部一层淡白，让字压在浅色区，不抢画面 */
@@ -61,8 +59,9 @@
     display:block;height:100%;width:100%;
     background:rgba(23,35,60,.55);
     transform:scaleX(0);transform-origin:left;
-    transition:transform 1.5s linear;
+    animation:fill 1.6s linear forwards;
   }
+  @keyframes fill{to{transform:scaleX(1)}}
   .enter{
     display:inline-block;margin-top:22px;
     font-size:12px;letter-spacing:.16em;text-indent:.16em;
@@ -95,26 +94,21 @@
 <script>
 (function(){
   var TARGET = "https://yzbslz.netlify.app/";
-  var wall = document.getElementById("wall");
-  var bar  = document.getElementById("fill");
-  var loaded = false, leaving = false;
   var PREVIEW = /preview/.test(location.search) || /preview/.test(location.hash);
+  var leaving = false;
 
-  function paint(){ wall.classList.add("on"); bar.style.transform = "scaleX(1)"; }
-  function go(){
-    if (PREVIEW) return;
-    if (leaving) return;
+  function go(delay){
+    if (PREVIEW || leaving) return;
     leaving = true;
-    setTimeout(function(){ location.replace(TARGET); }, 900);
+    setTimeout(function(){ location.replace(TARGET); }, delay || 0);
   }
 
   var img = new Image();
-  img.onload  = function(){ loaded = true; paint(); setTimeout(go, 1150); };
-  img.onerror = function(){ setTimeout(go, 500); };
+  img.onload  = function(){ go(1600); };
+  img.onerror = function(){ go(600); };
   img.src = "https://t.tutu.to/img/pWUs";
 
-  setTimeout(function(){ if(!loaded) paint(); }, 250);
-  setTimeout(go, 3300);
+  setTimeout(function(){ go(0); }, 3400);
 })();
 </script>
 </body>
