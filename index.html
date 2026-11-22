@@ -1,108 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>yzbslz</title>
-<meta name="robots" content="noindex">
-<link rel="canonical" href="https://yzbslz.netlify.app/">
-<noscript><meta http-equiv="refresh" content="2; url=https://yzbslz.netlify.app/"></noscript>
+<title>yzbslz · 入口</title>
+<meta name="description" content="yzbslz 的个人小站入口：主页、音乐作品、动态、聊天室、留言板、小游戏、成就、关于我。">
+<meta name="keywords" content="yzbslz,yzbslz 个人主页,yzbslz 入口,yzbslz 小站">
+<link rel="canonical" href="https://yzbslz.com/">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    background:#e9eff8;
-    background-image:
-      radial-gradient(120% 90% at 18% 12%, #fbfdff 0%, rgba(251,253,255,0) 58%),
-      radial-gradient(110% 95% at 84% 92%, #cddced 0%, rgba(205,220,237,0) 62%),
-      linear-gradient(168deg,#eef4fb 0%,#e3ecf6 46%,#d6e3f1 100%);
-    color:#17233c;
-    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
-    overflow:hidden;
-    display:flex;align-items:center;justify-content:center;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  /* 一圈很淡的内边框，像卡片，不像模板 */
-  .frame{
-    position:fixed;inset:14px;z-index:0;
-    border:1px solid rgba(23,35,60,.09);
-    pointer-events:none;
-  }
-
-  .stage{
-    position:relative;z-index:1;
-    width:100%;text-align:center;
-    padding:0 26px;
-    transform:translateY(-1.5vh);
-  }
-  h1{
-    font-size:clamp(34px,9.4vw,52px);
-    font-weight:600;letter-spacing:.16em;text-indent:.16em;
-    color:#16233c;
-  }
-  .tag{
-    margin-top:14px;
-    font-size:10.5px;letter-spacing:.46em;text-indent:.46em;
-    color:rgba(23,35,60,.55);
-  }
-  .bar{
-    width:112px;height:1px;margin:30px auto 0;
-    background:rgba(23,35,60,.14);overflow:hidden;
-  }
-  .bar i{
-    display:block;height:100%;width:100%;
-    background:rgba(23,35,60,.62);
-    transform:scaleX(0);transform-origin:left;
-    animation:fill 1.25s linear forwards;
-  }
-  @keyframes fill{to{transform:scaleX(1)}}
-  .enter{
-    display:inline-block;margin-top:26px;
-    font-size:12px;letter-spacing:.16em;text-indent:.16em;
-    color:rgba(23,35,60,.78);text-decoration:none;
-    padding-bottom:3px;
-    border-bottom:1px solid rgba(23,35,60,.26);
-    transition:color .25s,border-color .25s;
-  }
-  .enter:hover,.enter:active{color:#0d1830;border-color:rgba(23,35,60,.8)}
-
-  .host{
-    position:fixed;left:0;right:0;bottom:30px;z-index:1;
-    text-align:center;
-    font-size:9.5px;letter-spacing:.28em;text-indent:.28em;
-    color:rgba(23,35,60,.30);
-  }
-  @media (max-height:520px){
-    .stage{transform:none}
-    .host{bottom:20px}
-  }
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:#070b16;color:#e8eefc;
+  display:flex;align-items:center;justify-content:center;
+  padding:26px 16px;position:relative;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(900px 600px at 15% -10%, rgba(88,120,255,.20), transparent 70%),
+    radial-gradient(800px 700px at 90% 110%, rgba(0,200,200,.14), transparent 70%);
+}
+.wrap{width:100%;max-width:660px;position:relative;z-index:2}
+.head{text-align:center;margin-bottom:24px}
+.brand{
+  font-size:clamp(28px,8vw,38px);font-weight:600;letter-spacing:.16em;text-indent:.16em;
+  background:linear-gradient(95deg,#cfe0ff,#7fa5ff 55%,#6ef0d8);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sub{margin-top:9px;font-size:11px;color:#8b9ab7;letter-spacing:.4em;text-indent:.4em}
+.tip{margin-top:14px;font-size:13px;color:#7b89a6}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+@media(min-width:560px){.grid{grid-template-columns:repeat(3,1fr)}}
+a.card{
+  display:block;padding:15px 14px 13px;border-radius:14px;text-decoration:none;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.10);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+}
+a.card:hover,a.card:active{transform:translateY(-3px);background:rgba(255,255,255,.10);border-color:rgba(140,180,255,.45)}
+.card .n{font-size:15px;font-weight:600;color:#eaf1ff}
+.card .d{margin-top:5px;font-size:12px;color:#8794b0;line-height:1.5}
+.bili{
+  margin-top:15px;display:flex;align-items:center;justify-content:center;
+  padding:13px;border-radius:14px;text-decoration:none;
+  background:linear-gradient(100deg,rgba(251,114,153,.16),rgba(255,255,255,.05));
+  border:1px solid rgba(251,114,153,.35);color:#ffd3e2;font-size:14px;
+  transition:transform .18s ease;
+}
+.bili:hover{transform:translateY(-2px)}
+.foot{margin-top:20px;text-align:center;font-size:12px;color:#5f6b83}
+.foot a{color:#7f93b8;text-decoration:none}
 </style>
 </head>
 <body>
-  <div class="frame"></div>
-
-  <div class="stage">
-    <h1>yzbslz</h1>
-    <p class="tag">MUSIC · 个人主页</p>
-    <div class="bar"><i></i></div>
-    <a class="enter" href="https://yzbslz.netlify.app/">直接进入</a>
+<div class="wrap">
+  <div class="head">
+    <div class="brand">yzbslz</div>
+    <div class="sub">MUSIC · 个人小站</div>
+    <div class="tip">选一个页面进去 · 全部在 yzbslz.com</div>
   </div>
-  <p class="host">YZBSLZ.NETLIFY.APP</p>
 
+  <div class="grid">
+    <a class="card" href="https://yzbslz.com/#home">
+      <div class="n">主页</div>
+      <div class="d">整站首页 · 头像、播放器、星空</div>
+    </a>
+    <a class="card" href="https://yzbslz.com/#works">
+      <div class="n">音乐作品</div>
+      <div class="d">14 首歌 · 封面歌词播放</div>
+    </a>
+    <a class="card" href="https://yzbslz.com/#timeline">
+      <div class="n">动态</div>
+      <div class="d">最近在做什么</div>
+    </a>
+    <a class="card" href="https://yzbslz.com/#chat">
+      <div class="n">聊天室</div>
+      <div class="d">实时聊天 · 游客也能说话</div>
+    </a>
+    <a class="card" href="https://yzbslz.com/#message">
+      <div class="n">留言板</div>
+      <div class="d">留句话给我 · 会看到</div>
+    </a>
+    <a class="card" href="https://yzbslz.com/#games">
+      <div class="n">小游戏</div>
+      <div class="d">记忆方块 · 贪吃蛇 · 星域</div>
+    </a>
+    <a class="card" href="https://yzbslz.com/#ach">
+      <div class="n">成就</div>
+      <div class="d">6 项成就 · 看看解锁了几个</div>
+    </a>
+    <a class="card" href="https://yzbslz.com/#about">
+      <div class="n">关于我</div>
+      <div class="d">11 岁 · 广西玉林 · 做音乐</div>
+    </a>
+  </div>
+
+  <a class="bili" href="https://space.bilibili.com/3493092606872088" target="_blank" rel="noopener">
+    B 站空间 · @yzbslz
+  </a>
+
+  <div class="foot">yzbslz.com · <a href="https://yzbslz.com/">直接进入主页</a></div>
+</div>
 <script>
 (function(){
-  var TARGET = "https://yzbslz.netlify.app/";
-  var PREVIEW = /preview/.test(location.search) || /preview/.test(location.hash);
-  var leaving = false;
-
-  function go(delay){
-    if (PREVIEW || leaving) return;
-    leaving = true;
-    setTimeout(function(){ location.replace(TARGET); }, delay || 0);
+  var DESTS = document.querySelectorAll("a.card, a.bili, .foot a");
+  for (var i=0;i<DESTS.length;i++){
+    DESTS[i].addEventListener("click", function(){
+      try { this.setAttribute("data-synced","1"); } catch(e){}
+    }, true);
   }
-
-  go(1300);
 })();
 </script>
 </body>
